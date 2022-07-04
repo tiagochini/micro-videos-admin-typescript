@@ -1,4 +1,3 @@
-import { values } from "lodash";
 import ValueObject from "./value-objects";
 
 class StubValueObject extends ValueObject {
