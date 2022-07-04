@@ -9,7 +9,7 @@ export type CategoryProperties = {
 };
 
 export type CategoryUpdate = {
-    name: string;
+    name?: string;
     description?: string;
 }
 
@@ -26,8 +26,16 @@ export default class Category extends Entity<CategoryProperties> {
         return this.props.name;
     }
 
+    private set name(name: string) {
+        this.props.name = name;
+    }
+
     get description() {
         return this.props.description;
+    }
+
+    private set description(description: string) {
+        this.props.description = description;
     }
 
     get is_active() {
@@ -39,8 +47,8 @@ export default class Category extends Entity<CategoryProperties> {
     }
 
     update(props: CategoryUpdate): Category {
-        this.props.name = props.name ?? this.props.name;
-        this.props.description = props.description ?? this.props.description;
+        this.name = props.name ?? this.name;
+        this.description = props.description ?? this.description;
 
         return this;
     }
