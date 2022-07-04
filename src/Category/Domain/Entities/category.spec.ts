@@ -1,7 +1,7 @@
 import Category, { CategoryProperties } from './category';
 import { omit } from 'lodash';
 import { validate as uuidValidate } from 'uuid';
-import UniqueEntityId from '../../../@Shared/Domain/unique-entity-id.vo';
+import UniqueEntityId from '../../../_Shared/Domain/ValueObjects/unique-entity-id.vo';
 describe('Entity Category', () => {
 
     it('constructor of category', () => {
@@ -95,6 +95,47 @@ describe('Entity Category', () => {
         expect(category.name).toBe('Movie');
         expect(category.created_at).toBeInstanceOf(Date);
         expect(category.created_at).toStrictEqual(created_at);
+    });
+
+    it('should update entity', () => { 
+        let category = new Category({ name: 'Movie' });
+        expect(category.name).toBe('Movie');
+        expect(category.description).toBeNull();
+        expect(category.is_active).toBeTruthy();
+        expect(category.created_at).toBeInstanceOf(Date);
+
+        category = category.update({ name: 'Movie', description: 'Movie description'});
+        expect(category.name).toBe('Movie');
+        expect(category.description).toBe('Movie description');
+        expect(category.created_at).toBeInstanceOf(Date);
+    });
+
+    it('should activate entity', () => {
+        let category = new Category({ name: 'Movie', is_active: false });
+        expect(category.name).toBe('Movie');
+        expect(category.description).toBeNull();
+        expect(category.is_active).not.toBeTruthy();
+        expect(category.created_at).toBeInstanceOf(Date);
+
+        category = category.activate();
+        expect(category.name).toBe('Movie');
+        expect(category.description).toBeNull();
+        expect(category.is_active).toBeTruthy();
+        expect(category.created_at).toBeInstanceOf(Date);
+    });
+
+    it('should deactivate entity', () => {
+        let category = new Category({ name: 'Movie', is_active: true });
+        expect(category.name).toBe('Movie');
+        expect(category.description).toBeNull();
+        expect(category.is_active).toBeTruthy();
+        expect(category.created_at).toBeInstanceOf(Date);
+
+        category = category.deactivate();
+        expect(category.name).toBe('Movie');
+        expect(category.description).toBeNull();
+        expect(category.is_active).not.toBeTruthy();
+        expect(category.created_at).toBeInstanceOf(Date);
     });
 
 
