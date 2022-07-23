@@ -30,10 +30,10 @@ function runRule({
     value,
     property,
     rule,
-    params = []
+    params = [],
 }: Omit<ExpectedRuleTest, "error">) {
     const validator = ValidatorRules.values(value, property);
-    const method = validator[rule];
+    const method = validator[rule] as (...args: any[]) => ValidatorRules;
     method.apply(validator, params);
 }
 
@@ -150,27 +150,6 @@ describe("ValidatorRules Unit Test", () => {
         ];
         arrange.forEach(item => {
             assertIsValid({ value: item.value, property: item.property, rule: "boolean", error: new ValidationError("The field must be a boolean") });
-        });
-    });
-
-    test('number method', () => {
-        let arrange: ValuesValidationRule[] = [
-            { value: "asasdf asdf", property: "field" },
-            { value: "", property: "field" },
-            { value: true, property: "field" },
-            { value: false, property: "field" },
-        ];
-        arrange.forEach(item => {
-            assertIsInvalid({ value: item.value, property: item.property, rule: "number", error: new ValidationError("The field must be a number") });
-        });
-        arrange = [
-            { value: null, property: "field" },
-            { value: undefined, property: "field" },
-            { value: 0, property: "field" },
-            { value: 7, property: "field" },
-        ];
-        arrange.forEach(item => {
-            assertIsValid({ value: item.value, property: item.property, rule: "number", error: new ValidationError("The field must be a number") });
         });
     });
 

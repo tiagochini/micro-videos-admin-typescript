@@ -45,13 +45,6 @@ export default class ValidatorRules {
         }
         return this;
     }
-
-    number(): Omit<this, "number"> {
-        if (!isEmpty(this.value) && typeof this.value !== 'number') {
-            throw new ValidationError(`The ${this.property} must be a number`);
-        }
-        return this;
-    }
 }
 
 export function isEmpty(value: any): boolean {

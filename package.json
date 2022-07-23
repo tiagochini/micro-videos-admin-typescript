@@ -6,8 +6,11 @@
   "scripts": {
     "ts-node": "ts-node",
     "tsc": "tsc",
-    "clean": "rm tsconfig.tsbuildinfo",
-    "test": "jest"
+    "tsc:check": "npm run tsc -- --noEmit",
+    "clean:tsc": "rm tsconfig.tsbuildinfo",
+    "test": "jest",
+    "test:cov": "npm run test -- --coverage"
+
   },
   "keywords": [],
   "author": "",
